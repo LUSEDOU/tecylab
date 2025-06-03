@@ -71,7 +71,8 @@ Firestore-->WebSocket
 ```bash
 npm install -g firebase-tools
 firebase login
-firebase init
+dart pub global activate flutterfire_cli
+flutterfire configure
 
 flutter pub add firebase_core
 flutter pub add firebase_database
