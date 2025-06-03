@@ -1,11 +1,17 @@
 import 'package:ffr/repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class MessageSender extends StatefulWidget {
-  const MessageSender({super.key, required this.authRepository});
+  const MessageSender({
+    super.key,
+    required this.authRepository,
+    required this.messageRepository,
+  });
 
   final AuthRepository authRepository;
+  final MessageRepository messageRepository;
 
   @override
   State<MessageSender> createState() => _MessageSenderState();
@@ -35,10 +41,13 @@ class _MessageSenderState extends State<MessageSender> {
       return;
     }
 
+    final message =
+        '${widget.authRepository.currentDisplayName}@${messageController.text}';
+
+    widget.messageRepository.addMessage(message);
+
     messageController.clear();
     print('Message sent: ${widget.authRepository.currentUser}');
-
-    final message = messageController.text;
 
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
@@ -68,6 +77,21 @@ class _MessageSenderState extends State<MessageSender> {
           child: Form(
             key: _formKey,
             child: TextFormField(
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp(r'^[a-zA-Z0-9]+$')),
+              ],
+              controller: messageController,
+              maxLines: 3,
+              minLines: 1,
+              keyboardType: TextInputType.multiline,
+              textInputAction: TextInputAction.send,
+              onFieldSubmitted: (_) => _onSendMessage(),
+              autocorrect: false,
+              enableSuggestions: false,
+              autofillHints: const [
+                AutofillHints
+                    .newPassword, // Use newPassword to avoid autofill issues
+              ],
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please type a message';

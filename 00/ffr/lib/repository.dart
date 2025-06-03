@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class HandledException implements Exception {
   HandledException(this.message);
@@ -81,5 +82,37 @@ class AuthRepository {
 
   Future<void> signOut() {
     return _firebaseAuth.signOut();
+  }
+}
+
+class MessageRepository {
+  MessageRepository({required this.firebaseDatabase});
+
+  final DatabaseReference firebaseDatabase;
+
+  Stream<String> get newMessages => firebaseDatabase
+  .orderByChild('timestamp')
+  .limitToLast(10)
+  .onChildAdded
+  .map((event) {
+    final message = event.snapshot.value as Map<dynamic, dynamic>?;
+
+    if (message != null) {
+      return message['message'] as String? ?? '';
+    } else {
+      throw HandledException('Received null message from database');
+    }
+  });
+
+  Future<void> addMessage(String message) async {
+    try {
+      await firebaseDatabase.push().set({
+        'message': message,
+        'timestamp': ServerValue.timestamp,
+      });
+    } catch (e) {
+      print('Error adding message: $e');
+      throw HandledException('Failed to add message');
+    }
   }
 }
