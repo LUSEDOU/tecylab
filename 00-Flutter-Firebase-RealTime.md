@@ -62,10 +62,6 @@ npm install -g firebase-tools
 firebase login
 dart pub global activate flutterfire_cli
 flutterfire configure
-
-flutter pub add firebase_core
-flutter pub add firebase_database
-flutter pub add firebase_auth
 ```
 
 ::::
@@ -82,3 +78,58 @@ flutter pub add firebase_auth
 
 # Firebase Setup
 
+## Add Packages
+
+```bash
+flutter pub add firebase_core
+flutter pub add firebase_database
+flutter pub add firebase_auth
+```
+
+---
+
+# Firebase Setup
+
+## Initialize Firebase
+
+```dart
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  FirebaseDatabase.instance;
+  FirebaseAuth.instance;
+  runApp(MyApp());
+}
+```
+
+---
+
+# Firebase Setup
+
+## Firebase Auth
+```dart
+import 'package:firebase_auth/firebase_auth.dart';
+
+await FirebaseAuth.instance.signInWithEmailAndPassword(
+  email: email,
+  password: password,
+);
+```
+
+# Firebase Setup
+
+## Firebase Realtime Database
+
+```dart
+import 'package:firebase_database/firebase_database.dart';
+
+FirebaseDatabase.instance
+  .ref()
+  .onChildAdded(
+    (event) => print('New child added: ${event.snapshot.value}'),
+  );
+```
