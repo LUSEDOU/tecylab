@@ -1,0 +1,45 @@
+diff --git a/android/app/build.gradle.kts b/android/app/build.gradle.kts
+index 9c9a41c..085e18a 100644
+--- a/android/app/build.gradle.kts
++++ b/android/app/build.gradle.kts
+@@ -1,5 +1,8 @@
+ plugins {
+     id("com.android.application")
++    // START: FlutterFire Configuration
++    id("com.google.gms.google-services")
++    // END: FlutterFire Configuration
+     id("kotlin-android")
+     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
+     id("dev.flutter.flutter-gradle-plugin")
+diff --git a/android/settings.gradle.kts b/android/settings.gradle.kts
+index ab39a10..bd7522f 100644
+--- a/android/settings.gradle.kts
++++ b/android/settings.gradle.kts
+@@ -19,6 +19,9 @@ pluginManagement {
+ plugins {
+     id("dev.flutter.flutter-plugin-loader") version "1.0.0"
+     id("com.android.application") version "8.7.3" apply false
++    // START: FlutterFire Configuration
++    id("com.google.gms.google-services") version("4.3.15") apply false
++    // END: FlutterFire Configuration
+     id("org.jetbrains.kotlin.android") version "2.1.0" apply false
+ }
+ 
+diff --git a/macos/Flutter/GeneratedPluginRegistrant.swift b/macos/Flutter/GeneratedPluginRegistrant.swift
+index cccf817..c1357fa 100644
+--- a/macos/Flutter/GeneratedPluginRegistrant.swift
++++ b/macos/Flutter/GeneratedPluginRegistrant.swift
+@@ -5,6 +5,13 @@
+ import FlutterMacOS
+ import Foundation
+ 
++import firebase_auth
++import firebase_core
++import firebase_database
++
+ 
+ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
++  FLTFirebaseAuthPlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseAuthPlugin"))
++  FLTFirebaseCorePlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseCorePlugin"))
++  FLTFirebaseDatabasePlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseDatabasePlugin"))
+ }
