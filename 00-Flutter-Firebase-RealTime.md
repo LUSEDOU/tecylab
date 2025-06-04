@@ -22,17 +22,17 @@ aspectratio: 169
 
 :::: column
 
-![Firabase logo](./img/img.png){ height=100px }
+![Firabase logo](./img/firabase.png){ height=100px }
 
-![Supabase](./img/img.png){ height=100px }
+![Supabase](./img/supabase.png){ height=100px }
 
 ::::
 
 :::: column
 
-![Pocketbase](./img/img.png){ height=100px }
+![Pocketbase](./img/pocketbase.png){ height=100px }
 
-![Turso](./img/img.png){ height=100px }
+![Turso](./img/turso.png){ height=100px }
 
 ::::
 
@@ -46,17 +46,6 @@ aspectratio: 169
 - Polling vs Sockets vs Server-Sent Events
 - Firebase Realtime Database = WebSockets
 - `Stream<T>`
-
----
-
-# App Architecture
-
-```mermaid
-graph LR
-UI-->StreamBuilder
-StreamBuilder-->Firestore
-Firestore-->WebSocket
-```
 
 ---
 
