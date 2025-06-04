@@ -12,7 +12,21 @@ aspectratio: 169
 
 # Flutter
 
-![Flutter icon](./img/img.png){ height=100px }
+::: columns
+
+:::: column
+
+![Flutter icon](./img/img.png){ height=150px }
+
+::::
+
+:::: column
+
+![My Firebase config](./img/qr.png){ height=150px }
+
+::::
+
+:::
 
 ---
 
@@ -51,10 +65,6 @@ aspectratio: 169
 
 # Firebase Setup
 
-::: columns
-
-:::: column
-
 ## Fresh Project
 
 ```bash
@@ -63,16 +73,6 @@ firebase login
 dart pub global activate flutterfire_cli
 flutterfire configure
 ```
-
-::::
-
-:::: column
-
-![My Firebase config](./img/img.png){ height=100px }
-
-::::
-
-:::
 
 ---
 
