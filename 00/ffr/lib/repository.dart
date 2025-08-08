@@ -90,9 +90,23 @@ class MessageRepository {
 
   final DatabaseReference firebaseDatabase;
 
+  Stream<List<String>> get messages => firebaseDatabase
+      .orderByChild('timestamp')
+      .onValue
+      .map((event) {
+        final data = event.snapshot.value as Map<dynamic, dynamic>?;
+
+        if (data != null) {
+          return data.entries
+              .map((entry) => (entry.value as Map<dynamic, dynamic>)['message'] as String? ?? '')
+              .toList();
+        } else {
+          throw HandledException('Received null data from database');
+        }
+      });
+
   Stream<String> get newMessages => firebaseDatabase
   .orderByChild('timestamp')
-  .limitToLast(10)
   .onChildAdded
   .map((event) {
     final message = event.snapshot.value as Map<dynamic, dynamic>?;

@@ -77,21 +77,24 @@ class _MessageRiverFlowState extends State<MessageRiverFlow> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: ListView.separated(
+      child: ListView.builder(
         scrollDirection: Axis.horizontal,
         dragStartBehavior: DragStartBehavior.start,
         itemCount: widget.messages.length,
         controller: _scrollController,
         padding: EdgeInsets.zero,
-        separatorBuilder: (_, __) => SizedBox(width: 16.0 * 4),
+        // separatorBuilder: (_, __) => SizedBox(width: 16.0 * 4),
         itemBuilder: (_, i) {
-          return SizedBox(
-            height: widget.messageHeight,
-            child: Text(
-              widget.messages[i],
-              style: TextStyle(
-                fontSize: widget.messageHeight,
-                color: Colors.black87,
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16 * 2),
+            child: SizedBox(
+              height: widget.messageHeight,
+              child: Text(
+                widget.messages[i],
+                style: TextStyle(
+                  fontSize: widget.messageHeight,
+                  color: Colors.black87,
+                ),
               ),
             ),
           );

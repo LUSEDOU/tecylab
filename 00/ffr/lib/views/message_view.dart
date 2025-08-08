@@ -1,8 +1,8 @@
-import 'dart:async';
 
 import 'package:ffr/repository.dart';
 import 'package:ffr/widgets/widgets.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
 class MessageView extends StatefulWidget {
@@ -60,7 +60,9 @@ class _MessageViewState extends State<MessageView> {
                 height: MessageView.messageHeight.toDouble(),
                 child: MessageRiverFlow(
                   screenWidth: constraints.maxWidth,
-                  messages: messages,
+                  messages: messages.whereIndexed(
+                    (i, message) => i % messagesPerScreenHeight == index,
+                  ).toList(),
                   messageHeight: 50.0,
                   initialDelay: Duration(
                     milliseconds: index * 1000, // stagger the start times
